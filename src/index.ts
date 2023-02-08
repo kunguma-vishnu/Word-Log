@@ -1,12 +1,17 @@
 import express from 'express';
-
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
+import router from './routes';
+app.use('/',router);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import path from 'path';
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
 });  
